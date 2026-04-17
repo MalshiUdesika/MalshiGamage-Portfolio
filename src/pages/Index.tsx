@@ -7,6 +7,7 @@ import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
+import BotpressChatbot from "@/components/BotpressChatbot";
 import { useTheme } from "@/hooks/useTheme";
 
 const Index = () => {
@@ -15,6 +16,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <LoadingScreen />
+      <BotpressChatbot />
       <Navbar isDark={isDark} onToggleTheme={toggle} />
       <main>
         <HeroSection />
