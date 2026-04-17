@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { ExternalLink, Github, X } from "lucide-react";
+import { Github, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import eventManage from "@/assets/EventManage.png"
+
+import eventManage from "@/assets/EventManage.png";
+import recycleHub from "@/assets/RecycleHub.png";
+import LMS from "@/assets/Uni LMS.png";
 
 const FILTERS = ["All", "Web"];
 
@@ -10,6 +13,7 @@ const PROJECTS = [
   {
     title: "Recycle Hub",
     category: "Web",
+    image: recycleHub,
     stack: ["React", "Node.js", "JavaScript", "Tailwind CSS", "Supabase"],
     desc: "A community-driven web platform promoting sustainable waste management. Features waste sorting guidance, recycling center locator, donation place, and a secondhand marketplace. Implemented recycling center locator and donation features with responsive UI.",
     color: "from-primary to-teal",
@@ -18,6 +22,7 @@ const PROJECTS = [
   {
     title: "Learning Institute Management System",
     category: "Web",
+    image: LMS,
     stack: ["JavaScript", "PHP", "MySQL", "CSS"],
     desc: "A web-based system for managing student records and course information. Developed backend logic using PHP and integrated MySQL database with dynamic front-end interfaces for improved usability.",
     color: "from-teal to-accent",
@@ -26,6 +31,7 @@ const PROJECTS = [
   {
     title: "Campus Event Management System",
     category: "Web",
+    image: eventManage,
     stack: ["JavaScript", "PHP", "MySQL", "Bootstrap", "CSS"],
     desc: "A full-stack event management platform with CRUD operations for event scheduling and participant registration. Integrated database connectivity for real-time data management.",
     color: "from-accent to-primary",
@@ -36,9 +42,10 @@ const PROJECTS = [
 const ProjectsSection = () => {
   const { ref, isVisible } = useScrollAnimation();
   const [filter, setFilter] = useState("All");
-  const [selectedProject, setSelectedProject] = useState<(typeof PROJECTS)[0] | null>(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const filtered = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
+  const filtered =
+    filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
 
   return (
     <section id="Projects" className="py-24 bg-background">
@@ -50,7 +57,6 @@ const ProjectsSection = () => {
         >
           My <span className="text-primary">Projects</span>
         </h2>
-        
 
         {/* Filter tabs */}
         <div className="flex justify-center gap-2 mb-10">
@@ -80,22 +86,42 @@ const ProjectsSection = () => {
               }`}
               style={{ transitionDelay: `${i * 100 + 200}ms` }}
             >
-              <div className={`h-40 bg-gradient-to-br ${project.color} flex flex-col items-center justify-center gap-2`}>
-                <span className="font-heading text-2xl font-bold text-primary-foreground/80">{project.title[0]}</span>
-                <span className="text-xs text-primary-foreground/60 font-medium">{project.type}</span>
+              {/* IMAGE SECTION */}
+              <div className="h-44 w-full overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
+
               <div className="p-5">
-                <h3 className="font-heading font-semibold text-lg mb-2">{project.title}</h3>
+                <h3 className="font-heading font-semibold text-lg mb-2">
+                  {project.title}
+                </h3>
+
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {project.stack.map((t) => (
-                    <span key={t} className="px-2 py-0.5 text-xs rounded-full bg-secondary text-secondary-foreground">
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 text-xs rounded-full bg-secondary text-secondary-foreground"
+                    >
                       {t}
                     </span>
                   ))}
                 </div>
-                <p className="text-sm text-muted-foreground line-clamp-2">{project.desc}</p>
+
+                <p className="text-sm text-muted-foreground line-clamp-2">
+                  {project.desc}
+                </p>
+
                 <div className="flex gap-3 mt-4">
-                  <a href="https://github.com/MalshiUdesika" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-primary hover:underline font-medium">
+                  <a
+                    href="https://github.com/MalshiUdesika"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-primary hover:underline font-medium"
+                  >
                     GitHub <Github className="w-3.5 h-3.5" />
                   </a>
                 </div>
@@ -107,31 +133,54 @@ const ProjectsSection = () => {
 
       {/* Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/50 backdrop-blur-sm p-4" onClick={() => setSelectedProject(null)}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/50 backdrop-blur-sm p-4"
+          onClick={() => setSelectedProject(null)}
+        >
           <div
             onClick={(e) => e.stopPropagation()}
             className="bg-background border border-border rounded-2xl max-w-lg w-full p-6 animate-scale-in shadow-2xl"
           >
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h3 className="font-heading text-2xl font-bold">{selectedProject.title}</h3>
-                <p className="text-sm text-muted-foreground">{selectedProject.type}</p>
+                <h3 className="font-heading text-2xl font-bold">
+                  {selectedProject.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {selectedProject.type}
+                </p>
               </div>
-              <button onClick={() => setSelectedProject(null)} className="p-1 rounded-lg hover:bg-muted">
+
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="p-1 rounded-lg hover:bg-muted"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
+
             <div className="flex flex-wrap gap-2 mb-4">
               {selectedProject.stack.map((t) => (
-                <span key={t} className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary font-medium">
+                <span
+                  key={t}
+                  className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary font-medium"
+                >
                   {t}
                 </span>
               ))}
             </div>
-            <p className="text-muted-foreground mb-6 leading-relaxed">{selectedProject.desc}</p>
+
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              {selectedProject.desc}
+            </p>
+
             <div className="flex gap-3">
               <Button variant="outline" size="sm" asChild>
-                <a href="https://github.com/MalshiUdesika" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://github.com/MalshiUdesika"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Github className="w-4 h-4 mr-1" /> GitHub
                 </a>
               </Button>
