@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ExternalLink, Github, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import eventManage from "@/assets/EventManage.png"
 
 const FILTERS = ["All", "Web"];
 
