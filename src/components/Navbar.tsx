@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+/* ✅ ADD YOUR LOGO HERE */
+import logo from "@/assets/logo.png"; 
+
 const NAV_LINKS = ["Home", "About", "Certificates", "Projects", "Contact"];
 
 interface NavbarProps {
@@ -29,10 +32,12 @@ const Navbar = ({ isDark, onToggleTheme }: NavbarProps) => {
       },
       { threshold: 0.35 }
     );
+
     NAV_LINKS.forEach((l) => {
       const el = document.getElementById(l);
       if (el) observer.observe(el);
     });
+
     return () => observer.disconnect();
   }, []);
 
@@ -51,33 +56,50 @@ const Navbar = ({ isDark, onToggleTheme }: NavbarProps) => {
       }`}
     >
       <div className="section-container flex items-center justify-between h-16">
-        {/* Logo */}
-        <button onClick={() => scrollTo("Home")} className="font-heading text-xl font-bold text-primary">
-          MG
+
+       
+        <button
+          onClick={() => scrollTo("Home")}
+          className="flex items-center gap-2"
+        >
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-9 w-9 object-contain rounded-md hover:scale-105 transition-transform duration-200"
+          />
         </button>
 
-        {/* Desktop: centered links */}
+        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <button
               key={link}
               onClick={() => scrollTo(link)}
-              className={`nav-link ${activeSection === link ? "active text-primary font-semibold" : ""}`}
+              className={`nav-link ${
+                activeSection === link
+                  ? "active text-primary font-semibold"
+                  : ""
+              }`}
             >
               {link}
             </button>
           ))}
         </div>
 
-        {/* Desktop: right side */}
+        {/* Desktop right side */}
         <div className="hidden md:flex items-center gap-3">
           <button
             onClick={onToggleTheme}
             aria-label="Toggle dark mode"
             className="p-2 rounded-lg hover:bg-muted transition-colors"
           >
-            {isDark ? <Sun className="w-5 h-5 text-foreground" /> : <Moon className="w-5 h-5 text-foreground" />}
+            {isDark ? (
+              <Sun className="w-5 h-5 text-foreground" />
+            ) : (
+              <Moon className="w-5 h-5 text-foreground" />
+            )}
           </button>
+
           <Button
             size="sm"
             onClick={() => scrollTo("Contact")}
@@ -87,21 +109,30 @@ const Navbar = ({ isDark, onToggleTheme }: NavbarProps) => {
           </Button>
         </div>
 
-        {/* Mobile: right controls */}
+        {/* Mobile controls */}
         <div className="flex items-center gap-3 md:hidden">
           <button
             onClick={onToggleTheme}
             aria-label="Toggle dark mode"
             className="p-2 rounded-lg hover:bg-muted transition-colors"
           >
-            {isDark ? <Sun className="w-5 h-5 text-foreground" /> : <Moon className="w-5 h-5 text-foreground" />}
+            {isDark ? (
+              <Sun className="w-5 h-5 text-foreground" />
+            ) : (
+              <Moon className="w-5 h-5 text-foreground" />
+            )}
           </button>
+
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="p-2 rounded-lg hover:bg-muted transition-colors"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
+            {mobileOpen ? (
+              <X className="w-5 h-5 text-foreground" />
+            ) : (
+              <Menu className="w-5 h-5 text-foreground" />
+            )}
           </button>
         </div>
       </div>
@@ -115,13 +146,20 @@ const Navbar = ({ isDark, onToggleTheme }: NavbarProps) => {
                 key={link}
                 onClick={() => scrollTo(link)}
                 className={`text-left py-2 px-3 rounded-lg transition-colors ${
-                  activeSection === link ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:text-foreground"
+                  activeSection === link
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {link}
               </button>
             ))}
-            <Button size="sm" onClick={() => scrollTo("Contact")} className="rounded-full mt-2">
+
+            <Button
+              size="sm"
+              onClick={() => scrollTo("Contact")}
+              className="rounded-full mt-2"
+            >
               Hire Me
             </Button>
           </div>
